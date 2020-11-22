@@ -5,29 +5,32 @@ import Weather from './components/Weather'
 class App extends Component {
 
   state = {
-    data: [
-      {
-        "zipCode": "98012",
-        "temparature": 50
-      },
-      {
-        "zipCode": "98033",
-        "temparature": 60
-      },
-      {
-        "zipCode": "98006",
-        "temparature": 70
-      }
-    ]
+    weather: [],
+    errorMessage: ''
   }
 
   componentDidMount() {
-    fetch('http://jsonplaceholder.typicode.com/users')
-    .then(res => res.json())
-    .then((data) => {
-      this.setState({ contacts: data })
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(["98012", "98033", "98043"])
+    };
+
+    fetch('http://localhost:7071/api/WeatherFunction', requestOptions)
+    .then(async response => {
+      const data = await response.json();
+
+      if(!response.ok) {
+        const error = (data && data.zipCodeWeathers) || response.status;
+        return Promise.reject(error);
+      }
+
+      this.setState({weather: data.zipCodeWeathers})
     })
-    .catch(console.log)
+    .catch(error => {
+      this.setState({errorMessage: error.toString() });
+      console.error('There was an error!', error);
+    });
   }
 
   render() {
@@ -35,7 +38,7 @@ class App extends Component {
       <div className="App">
         <h1>Hello, React!</h1>    
 
-        <Weather data={this.state.data} />
+        <Weather data={this.state.weather} />
       </div>
     );
   }
