@@ -16,7 +16,7 @@ class App extends Component {
       body: JSON.stringify(["98012", "98033", "98043"])
     };
 
-    fetch('http://localhost:7071/api/WeatherFunction', requestOptions)
+    fetch('https://weather-ui.azurewebsites.net/api/WeatherFunction', requestOptions)
     .then(async response => {
       const data = await response.json();
 
