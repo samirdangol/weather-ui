@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/384d81bc-49bc-443a-8c50-0dfa3d9b5e3b/resourceGroups/weather/providers/Microsoft.Web/sites/weather-ui",
+    "appService.deploySubpath": "build"
+}
