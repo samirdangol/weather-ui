@@ -1,3 +1,12 @@
 .App {
   text-align: center;
 }
+.d-flex {
+  display: flex!important;
+  height: 25vh;
+}
+
+.center {
+  margin: 0 auto;
+  align-self: top;
+}
